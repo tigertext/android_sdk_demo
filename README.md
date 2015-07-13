@@ -1,1 +1,2 @@
-# android_sdk_demo
+# TigerText Android SDK
+
