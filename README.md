@@ -7,7 +7,7 @@
 
 #TT SDK MANAGERS
 
-There are following manager provided by TT api. All the managers are singleton and each object can be retrieved by TT.getInstance().getManagerName().
+There are individual manager classes provided by TT api. All the managers are singleton and each object can be retrieved by TT.getInstance().getManagerName().
 
 1. TigertextAccountManager : This is used to login and logout calls. It provides appropriate callbacks for login and logout success and failure.
 
