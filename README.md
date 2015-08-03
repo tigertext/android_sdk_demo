@@ -34,5 +34,6 @@ There are following manager provided by TT api. All the managers are singleton a
 3. Once loggedIn successfully , call TT.sync() to get all the data from the server.
 4. Once successfully synced the data (roster, messages etc), register for GCM/SSE and register the appropriate loaders.
 
-#NOTE : There is a ConversationManager which is a singleton class to provide operations related to messages like sending message , retrieving attachments etc. There is an old class conversation which needs to be instantiated for every roster to handle message related functions. Conversation class will be deprecated soon. In case 2 methods are found in both the classes, prefer Conversationmanager.
+#NOTE
+There is a ConversationManager which is a singleton class to provide operations related to messages like sending message , retrieving attachments etc. There is an old class conversation which needs to be instantiated for every roster to handle message related functions. Conversation class will be deprecated soon. In case 2 methods are found in both the classes, prefer Conversationmanager.
 
