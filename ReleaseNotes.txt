@@ -1,0 +1,30 @@
+Release 1.0.7:
+==============
+
+#10 [P1] RosterManager listener only registered in loadRoster method
+	Added individual listeners to Conversation and Roster api's.
+
+List of changed API's as follows, all of the following API's have their own listeners:
+
+ConversationManager.java:
+
+public void sendAttachment(final File file, final String messageBody, final RosterEntry mRosterEntry, final int mTTL, final boolean mIsDoR, final SendMessageListener listener) {}
+public void sendAttachment(final File file, final String mimeType, final String messageBody, final RosterEntry mRosterEntry, final int mTTL, final boolean mIsDoR, final SendMessageListener listener) {}
+public void sendMessage(final String body, final RosterEntry rosterEntry, final int ttl, final boolean isDor, String senderId, final String senderOrgId, final SendMessageListener listener) {}
+
+Conversation.java:
+
+public void sendAttachment(final File file, final String messageBody, final SendMessageListener listener) {}
+public void sendAttachment(final File file, final String mimeType, final String messageBody, final SendMessageListener listener) {}
+public void sendMessage(final String messageBody) {}
+
+RosterManager.java:
+
+public void createGroup(final List<String> users, final String orgId, final String name, final CreateGroupListener listener) {}
+public void createGroup(final List<String> users, final String orgId, final String name, final File avatar, final Boolean replayHistory, final CreateGroupListener listener) {}
+public void setMetaData(final RosterEntry entry, final Map<String, String> data, final MetadataListener listener) {}
+public void setMetaData(final String rosterId, final String orgId, final Map<String, String> data, final MetadataListener listener) {}
+public void getMetaData(final RosterEntry entry, final MetadataListener listener) {}
+public void getMetaData(final String rosterId, final String orgId, final MetadataListener listener) {}
+
+END===
