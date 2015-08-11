@@ -1,3 +1,21 @@
+Release 1.0.9:
+Release 1.0.8:
+==============
+
+#15 [P1] Participant list/metadata change does not refresh message detail page
+
+Added code to notify conversation loader when metadata update is received.
+Now both roster and conversation loaders should be notified for metadata updates.
+Similarly participants list updates should also update the loaders.
+
+#14 [P1] Add participants call throws db exception
+Fixed
+
+#6 P2] Timestamp has different format for sending and sent messages
+Fixed
+
+
+
 Release 1.0.7:
 ==============
 
