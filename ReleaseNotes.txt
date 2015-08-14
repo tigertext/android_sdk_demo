@@ -1,3 +1,17 @@
+Release 1.0.10:
+==============
+
+#17 [P1] Sending a message doesn't update messages list
+Fixed content notification URI. Now the conversation loader receives notifications for send/rcv.
+
+#15 [P1] Participant list/metadata change does not refresh message detail page
+Please recheck with the fix for #17 in this build
+
+#14 [P1] Add participants call throws db exception
+Please recheck. Disabled the problem section of code.
+The disabled code is not related to add member to group.
+Will fix the root cause in next build.
+
 Release 1.0.9:
 Release 1.0.8:
 ==============
