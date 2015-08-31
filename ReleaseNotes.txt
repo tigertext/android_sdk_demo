@@ -1,3 +1,27 @@
+Release 1.0.12:
+==============
+#30 [P1] Push notification onHandleIntent triggered but notification is not shown
+Fixed
+
+#29 [P1] RosterManager.removeEntry api is failing with 400
+Fixed
+
+#28 [P2] RosterManager delete group api not taking a listener
+Fixed
+Added the following param as last param for deleteGroup API:
+TTRequestListener listener
+
+#27 [P2] Migration from old sdk to merged sdk
+In Progress
+
+#26 [P2] Do not delete default shared preference when logging out
+Fixed. SDK logout will not clear defauly shared prefs. Also SDK
+will now save all its prefs in files prefixed by tigertext_ and only
+these files will be deleted upon logout.
+
+#24 [P2] Fetching image fails with 500 status code and subsequent fetching works
+Nor reproducible. Need to know if this still happens for PCC client.
+
 Release 1.0.10:
 ==============
 
