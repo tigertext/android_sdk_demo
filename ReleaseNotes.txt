@@ -1,3 +1,14 @@
+Release 1.0.13:
+==============
+#32 [P2] Exception in log during fresh log in
+Fixed
+
+#33 [P1] Not able to send msg after log out and log in again
+Fixed
+
+#34 [P2] More on timestamp of messages
+Fixed
+
 Release 1.0.12:
 ==============
 #30 [P1] Push notification onHandleIntent triggered but notification is not shown
