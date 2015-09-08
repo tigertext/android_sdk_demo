@@ -1,5 +1,6 @@
 Release 1.0.13:
 ==============
+
 #32 [P2] Exception in log during fresh log in
 Fixed
 
