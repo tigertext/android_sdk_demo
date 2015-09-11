@@ -1,13 +1,22 @@
-Release 1.0.13:
+Release 1.0.14:
 ==============
 
-#32 [P2] Exception in log during fresh log in
+#35 [P1] Image sending is not working
 Fixed
 
 #33 [P1] Not able to send msg after log out and log in again
 Fixed
 
+Release 1.0.13:
+==============
+
 #34 [P2] More on timestamp of messages
+Fixed
+
+#33 [P1] Not able to send msg after log out and log in again
+Fixed
+
+#32 [P2] Exception in log during fresh log in
 Fixed
 
 Release 1.0.12:
