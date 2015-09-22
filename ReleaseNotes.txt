@@ -1,3 +1,18 @@
+Release 1.0.15:
+==============
+
+#38 [P1] Intermittent logging out and logging in, db becomes readonly
+Fixed
+
+#37 [P2] Conversation list not updated when new conversation is created while app is in background
+Fixed
+
+
+#27 [P2] Migration from old sdk to merged sdk
+Fixed
+The TT init() call will prepare for upgrade.
+The sync() call will do again fetch all the messages from server.
+
 Release 1.0.14:
 ==============
 
