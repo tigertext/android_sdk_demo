@@ -1,3 +1,13 @@
+Release 1.0.16:
+==============
+
+#41 [P1] Not receiving push notifications
+Fixed
+
+
+#40 [P1] Crash on fresh login or migration
+Fixed
+
 Release 1.0.15:
 ==============
 
