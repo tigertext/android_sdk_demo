@@ -1,3 +1,11 @@
+Release 1.0.17:
+==============
+#42 [P2] Sender Name not showing in Conversation History after user has left the Conversation
+Fixed
+
+#39 [P2] Out of Memory when downloading large image
+Fixed
+
 Release 1.0.16:
 ==============
 
