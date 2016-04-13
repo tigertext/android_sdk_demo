@@ -1,3 +1,5 @@
+DEPRECATED.  Please refer to latest repo here: https://github.com/tigerconnect/android-sdk-release
+
 # TigerText Android SDK
 
 #SETUP
