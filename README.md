@@ -12,8 +12,8 @@ To setup and initiate the Android SDK, follow the following setup steps.  First,
 
 In your project's base directory, create a folder called ttandroid and place the ttandroid.aar inside. Then add a build.gradle file with:
 
-    configurations.create(\"default\")
-    artifacts.add(\"default\", file('ttandroid-3.0.1.aar'))
+    configurations.create("default")
+    artifacts.add("default", file('ttandroid-3.0.1.aar'))
 
 
 Your directory structure should then look something like the following:
@@ -148,13 +148,13 @@ Getting realtime pull / push going is pretty straightforward. Simply add TT.getI
 
     public class RealTimeEventsTracker implements ActivityLifecycleCallbacks {
     
-      private static final int ACTIVITIES\_REQUIRED\_TO\_START\_SERVICE = 1;
-        private static final int ACTIVITIES\_REQUIRED\_TO\_STOP\_SERVICE = 0;
+      private static final int ACTIVITIES_REQUIRED_TO_START_SERVICE = 1;
+        private static final int ACTIVITIES_REQUIRED_TO_STOP_SERVICE = 0;
       private int mActiveActivities;
       
         public void onActivityStarted(Activity activity) {
             ++mActiveActivities;
-            if (TT.getInstance().getAccountManager().isLoggedIn() && mActiveActivities >= ACTIVITIES\_REQUIRED\_TO\_START\_SERVICE) {
+            if (TT.getInstance().getAccountManager().isLoggedIn() && mActiveActivities >= ACTIVITIES_REQUIRED_TO_START_SERVICE) {
                 startSSEService();
             }
         }
@@ -162,7 +162,7 @@ Getting realtime pull / push going is pretty straightforward. Simply add TT.getI
         public void onActivityStopped(Activity activity) {
             --mActiveActivities;
           //Most application don't need to stop the service, because you might want to get updates for your messages even after the app is backgrounded, but if for any reason you have to stop real time updates, this is the way to do it...
-            if (mActiveActivities == ACTIVITIES\_REQUIRED\_TO\_STOP\_SERVICE) {
+            if (mActiveActivities == ACTIVITIES_REQUIRED_TO_STOP_SERVICE) {
                 stopSSEService();
             }
         }
@@ -221,7 +221,7 @@ After authenticating, the SDK will fetch all the recent conversations associated
 
     ...
     //Declare roster related events required...
-        private static final String\[\] rosterListeners = new String\[\]{
+        private static final String[] rosterListeners = new String[]{
                 TTEvent.ROSTER_REMOVED,
                 TTEvent.ROSTER_UPDATED,
                 TTEvent.ROSTER_CREATED
@@ -243,7 +243,7 @@ After authenticating, the SDK will fetch all the recent conversations associated
 
     public class RosterActivity extends AppCompatActivity implements TTPubSub.Listener {
         //Declare the roster events required...
-        private static final String\[\] rosterListeners = new String\[\]{
+        private static final String[] rosterListeners = new String[]{
                 TTEvent.ROSTER_REMOVED,
                 TTEvent.ROSTER_UPDATED,
                 TTEvent.ROSTER_CREATED
