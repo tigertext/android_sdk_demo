@@ -3,6 +3,7 @@ title: "Quick Start Guide"
 excerpt: "A quick guide to the TigerConnect Android SDK."
 ---
 The Android SDK is a quick way to integrate secure messaging within a native Android app. This quick start guide will help you get the SDK added to your project.
+
 [block:callout]
 {
   "type": "info",
@@ -11,15 +12,18 @@ The Android SDK is a quick way to integrate secure messaging within a native And
 }
 [/block]
 
+
 [block:api-header]
 {
   "type": "basic",
   "title": "Installation"
 }
 [/block]
+
 To setup and initiate the Android SDK, follow the following setup steps.  First, download the latest version TigerConnect Android SDK. The SDK itself is not open source, contact TigerText to get access to the SDK
 
 In your project's base directory, create a folder called ttandroid and place the ttandroid.aar inside. Then add a build.gradle file with:
+
 [block:code]
 {
   "codes": [
@@ -30,6 +34,7 @@ In your project's base directory, create a folder called ttandroid and place the
   ]
 }
 [/block]
+
 Your directory structure should then look something like the following:
 [block:code]
 {
