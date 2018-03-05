@@ -325,4 +325,4 @@ Sending an attachment is very similar to sending a normal message, the differenc
     TT.getInstance().getConversationManager().sendAttachment(attachmentForSend, shouldDeleteAttachment);
     }
 
-Sending a message/attachments is as simple as this, after your message is sent, you will start receiving message related events from the Pubsub pipeline, so, make sure you register for events like Message Delivered, Message Read etc.
+Sending a message/attachments is as simple as this, after your message is sent, you will start receiving message related events from the Pubsub pipeline, so, make sure you register for events like Message Delivered, Message Read etc. If you need more information about our SDK you can check the [JavaDocs](http://tigertext.github.io/android_sdk_demo/javadoc/)
