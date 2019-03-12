@@ -44,7 +44,6 @@ Open your app's build.gradle (YOUR_APP/build.gradle in this case) and add these 
             multiDexEnabled true
         }
         dexOptions {
-            incremental false
             javaMaxHeapSize "4g"
         }
     }
