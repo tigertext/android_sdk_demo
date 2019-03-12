@@ -31,6 +31,15 @@ Your directory structure should then look something like the following:
 **Next, add the ttandroid module to your settings.gradle.  Note: you only need to add the** *':ttandroid', your settings.gradle should already be including your application module.*
 
     include ':app', ':ttandroid'
+At your project's level build.gradle, add the JitPack repository.
+	allprojects {
+	    repositories {
+		google()
+		jcenter()
+		maven { url 'https://jitpack.io' }
+	    }
+	}
+
 
 Until we publish to an artifact repository soon, you will need to manually add the dependencies of the ttandroid.aar since AAR's don't (by default) come with their dependencies bundled.
 
