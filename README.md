@@ -38,7 +38,7 @@ At your project's level build.gradle, add the JitPack repository.
 		    ...
 		    maven { url 'https://jitpack.io' }
 		}
-    	}
+    }
 
 
 Until we publish to an artifact repository soon, you will need to manually add the dependencies of the ttandroid.aar since AAR's don't (by default) come with their dependencies bundled.
