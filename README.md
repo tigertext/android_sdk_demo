@@ -55,10 +55,10 @@ Open your app's build.gradle (YOUR_APP/build.gradle in this case) and add these 
         def boltsVersion = '1.4.0'
         compile "com.parse.bolts:bolts-tasks:$boltsVersion"
         compile "com.parse.bolts:bolts-applinks:$boltsVersion"
-        compile "com.google.firebase:firebase-messaging:11.8.0"
+        compile "com.google.firebase:firebase-messaging:17.4.0"
         compile 'net.zetetic:android-database-sqlcipher:3.5.9'
-        compile 'com.squareup.retrofit2:retrofit:2.3.0'
-        compile 'com.jakewharton.timber:timber:4.6.0'
+        compile 'com.squareup.retrofit2:retrofit:2.5.0'
+        compile 'com.jakewharton.timber:timber:4.7.1'
         def stethoVersion = '1.5.0'
         compile "com.facebook.stetho:stetho:$stethoVersion"
         compile "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
