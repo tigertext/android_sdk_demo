@@ -61,6 +61,7 @@ Open your app's build.gradle (YOUR_APP/build.gradle in this case) and add these 
         ...
         implementation 'com.github.heremaps:oksse:master-SNAPSHOT'
         def boltsVersion = '1.4.0'
+	implementation project(':ttandroid')
         implementation "com.parse.bolts:bolts-tasks:$boltsVersion"
         implementation "com.parse.bolts:bolts-applinks:$boltsVersion"
         implementation "com.google.firebase:firebase-messaging:17.4.0"
