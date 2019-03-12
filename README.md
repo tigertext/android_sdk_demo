@@ -10,7 +10,7 @@ Contact TigerText to Check out the SDK.
 ## Installation
 To setup and initiate the Android SDK, follow the following setup steps.  First, download the latest version TigerConnect Android SDK. The SDK itself is not open source, contact TigerText to get access to the SDK
 
-In your project's base directory, create a folder called `ttandroid` and place the `ttandroid.aar` inside. Then add a build.gradle file with:
+In your project's base directory, create a folder called `ttandroid` and place the `ttandroid.aar` inside. Then add a `build.gradle` file with:
 
     configurations.create("default")
     artifacts.add("default", file('ttandroid-3.0.1.aar'))
