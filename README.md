@@ -153,44 +153,75 @@ After logging in and before interacting further with the SDK, you will want to s
 
 ## Realtime Updates
 
-Getting realtime pull / push going is pretty straightforward. Simply add TT.getInstance().startService() and TT.getInstance().stopService(); calls at the times that your application comes to the foreground (after a user is authenticated of course) and when the application goes into the background(if necessary). One way to achieve this is via [Activity Lifecycle Callbacks](http://developer.android.com/reference/android/app/Application.ActivityLifecycleCallbacks.html) registered within your Application class, for example:
+Getting realtime pull / push going is pretty straightforward. Simply add TT.getInstance().startService() and TT.getInstance().stopService(); calls at the times that your application comes to the foreground (after a user is authenticated of course) and when the application goes into the background(if necessary). One way to achieve this is via [Lifecycle Observer](https://developer.android.com/reference/android/arch/lifecycle/LifecycleObserver) registered within your Application class, for example:
 
-    public class RealTimeEventsTracker implements ActivityLifecycleCallbacks {
-    
-      private static final int ACTIVITIES_REQUIRED_TO_START_SERVICE = 1;
-        private static final int ACTIVITIES_REQUIRED_TO_STOP_SERVICE = 0;
-      private int mActiveActivities;
-      
-        public void onActivityStarted(Activity activity) {
-            ++mActiveActivities;
-            if (TT.getInstance().getAccountManager().isLoggedIn() && mActiveActivities >= ACTIVITIES_REQUIRED_TO_START_SERVICE) {
-                startSSEService();
-            }
+    public class RealTimeEventsTracker implements LifecycleObserver {
+
+    private boolean isForegrounded = false;
+    private boolean isServiceBound = false;
+
+    public RealTimeEventsTracker() {
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    public void onForeground() {
+        Timber.v("onForeground");
+        isForegrounded = true;
+        TT.getInstance().getAccountManager().setPresenceStatus(true);
+
+        if (!TT.getInstance().getAccountManager().isLoggedIn()) return;
+
+        // If the sse manager is already connected, set the online presence to available.
+        if (TTService.isSSEConnected()) {
+            Timber.v("onActivityStarted RealTimeEvents is already connected set presence to online");
+            TT.getInstance().getAccountManager().setOnlinePresence(true);
         }
-    
-        public void onActivityStopped(Activity activity) {
-            --mActiveActivities;
-          //Most application don't need to stop the service, because you might want to get updates for your messages even after the app is backgrounded, but if for any reason you have to stop real time updates, this is the way to do it...
-            if (mActiveActivities == ACTIVITIES_REQUIRED_TO_STOP_SERVICE) {
-                stopSSEService();
-            }
+
+        startRealTimeEventsService();
+        bindService();
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    public void onBackground() {
+        // Changing the online presence to be away since the app is now backgrounded.
+        Timber.v("onBackground");
+        isForegrounded = false;
+        TT.getInstance().getAccountManager().setPresenceStatus(false);
+
+        if (!TT.getInstance().getAccountManager().isLoggedIn()) return;
+
+        unbindService();
+
+        // If the sse manager is already connected, set the online presence to away.
+        if (TTService.isSSEConnected()) {
+            Timber.v("onActivityStopped about to set online presence to false");
+            TT.getInstance().getAccountManager().setOnlinePresence(false);
         }
-    
-        public void startSSEService() {
-            if (TTService.isServiceRunning()) return;
-            try {
-                TT.getInstance().startService();
-            } catch (IllegalStateException e) {
-                Timber.e(e, "Failed to start service...");
-            }
-        }
-    
-        public void stopSSEService() {
-            if (TTService.isServiceRunning()) {
-                TT.getInstance().stopService();
-            }
+
+        stopRealTimeEventsService();
+    }
+
+    private void startRealTimeEventsService() {
+        try {
+            TT.getInstance().startService();
+        } catch (IllegalStateException e) {
+            // App *should* be in the foreground, but is crashing on occasion for some reason.
+            // Suppress crash and keep track.
+            // Will retry when the user starts another activity or an FCM is received.
+            String errorMessage = "startRealTimeEventsService: Error starting service";
+            Timber.e(e, errorMessage);
         }
     }
+
+    private void stopRealTimeEventsService() {
+        TT.getInstance().stopService();
+    }
+}
+
+Then, in your Application class's onCreate method, register the RealTimeEventsTracker observer.
+
+	RealTimeEventsTracker realTimeEventsTracker = new RealTimeEventsTracker();
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(realTimeEventsTracker);
 
 ## Logging Out
 
