@@ -216,7 +216,6 @@ Getting realtime pull / push going is pretty straightforward. Simply add TT.getI
     private void stopRealTimeEventsService() {
         TT.getInstance().stopService();
     }
-}
 
 Then, in your Application class's onCreate method, register the RealTimeEventsTracker observer.
 
@@ -341,6 +340,19 @@ After authenticating, the SDK will fetch all the recent conversations associated
 
 4.- Loading the messages in a conversation is very similar to the example above, the only difference is that you would be using the ConversationManager to get the messages (paginated) and the events you will have to subscribe to will be message related events, like "New Message", "Message Recalled", "Message Failed", etc, The list of events fired by the SDK can be found in the TTEvent class.
 
+	TT.getInstance().getConversationManager().getMessagesByPage(rosterEntry, pageSize, topMessage, new GenericActionListener<List<Message>, Throwable>() {
+            @Override
+            public void onResult(List<Message> messages) {
+                // Post the messages in Live Data
+                messagesLiveData.postValue(messages);
+            }
+
+            @Override
+            public void onFail(Throwable throwable) {
+                Timber.e(throwable, "Failed getting messagesLiveData by page");
+            }
+        });
+
 ## Sending a Message
 
 There are several ways to send a message. The following snippet is one way to send a message. 
@@ -365,4 +377,115 @@ Sending an attachment is very similar to sending a normal message, the differenc
     TT.getInstance().getConversationManager().sendAttachment(attachmentForSend, shouldDeleteAttachment);
     }
 
-Sending a message/attachments is as simple as this, after your message is sent, you will start receiving message related events from the Pubsub pipeline, so, make sure you register for events like Message Delivered, Message Read etc. If you need more information about our SDK you can check the [JavaDocs](http://tigertext.github.io/android_sdk_demo/javadoc/)
+## Resending a Message
+
+	private void resendMessage(Message message) {
+		// Notify our Conversation Manager that this message needs to be resent
+		TT.getInstance().getConversationManager().resendMessage(message.getMessageId());
+		conversationAdapter.addMessage(message);
+		scrollToBottom();
+    	}
+	
+## Recalling a Message
+
+	private void recallMessage(Message message) {
+		// Notify our Conversation Manager that this message needs to be recalled
+		TT.getInstance().getConversationManager().recallMessage(message.getMessageId());
+    	}
+
+## Forwarding a Message
+
+	private void forwardMessage(Message message) {
+		// Notify our Conversation Manager that this message is to be forwarded
+		TT.getInstance().getConversationManager().forwardMessage(message.getMessageId(), message);
+    	}
+
+## Receiving updates for Messages
+In your Conversation View, you would want to subscribe to Message updates like `MESSAGE_ADDED`, `MESSAGE_UPDATED`, `MESSAGES_REMOVED`, etc.
+
+	@Override
+	    public void onEventReceived(@NonNull String event, @Nullable Object o) {
+		if (getActivity() == null) {
+		    return;
+		}
+
+		switch (event) {
+		    case TTEvent.MESSAGE_ADDED: {
+			/**
+			 *  It may also be useful to check if the fragment is alive as well!
+			 */
+			// Confirm that this new message is for this conversation and organization,
+			// if not, return early
+			if (!isEventForRosterEntryOrg(o)) return;
+
+			Timber.d("Message Added");
+			Message message = (Message) o;
+
+			/**
+			 onEventReceived is done on a background thread, so make sure to publish your logic
+			 on the UI thread
+			 */
+			getActivity().runOnUiThread(() -> {
+			    if (getUserVisibleHint()) {
+				// This is how you mark a conversation as read
+				TT.getInstance().getConversationManager().markConversationAsRead(mRosterEntry);
+			    }
+			    conversationAdapter.addMessage(message);
+			    scrollToBottom();
+			});
+		    }
+		    break;
+		    case TTEvent.MESSAGE_UPDATED: {
+			if (!isEventForRosterEntryOrg(o)) return;
+			Timber.d("Message Updated");
+		    }
+		    break;
+		    case TTEvent.MESSAGES_REMOVED: {
+			Timber.d("Messages Removed");
+			List<Message> messages = (List<Message>) o;
+			if (getActivity() == null) return;
+
+			getActivity().runOnUiThread(() -> {
+			    conversationAdapter.removeMessages(messages);
+			});
+		    }
+		    break;
+		    case TTEvent.MESSAGE_STATUS_RECEIVED: {
+		    	// This is where to handle message status updates like Read, Delivered
+			Timber.d("Message Status Received!");
+			Bundle b = (Bundle) o;
+			if (!isEventForRosterEntryOrg(b)) return;
+
+			String statusString = b.getString(com.tigertext.ttandroid.constant.TTConstants.STATUS);
+			Message.Status status = null;
+			if (statusString != null) {
+			    status = Message.Status.valueOf(statusString.toUpperCase());
+			}
+			if (status == Message.Status.DELIVERED && mRosterEntry.isGroup()) {
+			    /***
+			     * If status is Delivered and its a group, do nothing
+			     */
+			    return;
+			}
+
+			final Message m = b.getParcelable(com.tigertext.ttandroid.constant.TTConstants.MESSAGE);
+			if (m != null && mRosterEntry.getId().equals(m.getRosterId())) {
+			    getActivity().runOnUiThread(() -> {
+				conversationAdapter.markMessageAsRead(m);
+			    });
+			}
+		    }
+		    break;
+		}
+	    }
+
+
+Sending a message/attachments is as simple as this, after your message is sent, you will start receiving message related events from the Pubsub pipeline, so, make sure you register for `MESSAGE_STATUS_RECEIVED` to let users know that people have read their conversation. 
+
+## Creating a Group
+        TT.getInstance().getRosterManager().createGroup(users, organizationID, groupName, null);
+
+## Creating a Forum
+        TT.getInstance().getRosterManager().createRoom(forumName, organizationID, null, forumDescription, null);
+
+If you need more information about our SDK you can check the [JavaDocs](http://tigertext.github.io/android_sdk_demo/javadoc/)
