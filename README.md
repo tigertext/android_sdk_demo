@@ -157,15 +157,11 @@ Getting realtime pull / push going is pretty straightforward. Simply add TT.getI
 
     public class RealTimeEventsTracker implements LifecycleObserver {
 
-    private boolean isForegrounded = false;
-    private boolean isServiceBound = false;
-
     public RealTimeEventsTracker() {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onForeground() {
-        Timber.v("onForeground");
         isForegrounded = true;
         TT.getInstance().getAccountManager().setPresenceStatus(true);
 
@@ -173,7 +169,6 @@ Getting realtime pull / push going is pretty straightforward. Simply add TT.getI
 
         // If the sse manager is already connected, set the online presence to available.
         if (TTService.isSSEConnected()) {
-            Timber.v("onActivityStarted RealTimeEvents is already connected set presence to online");
             TT.getInstance().getAccountManager().setOnlinePresence(true);
         }
 
@@ -184,8 +179,6 @@ Getting realtime pull / push going is pretty straightforward. Simply add TT.getI
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onBackground() {
         // Changing the online presence to be away since the app is now backgrounded.
-        Timber.v("onBackground");
-        isForegrounded = false;
         TT.getInstance().getAccountManager().setPresenceStatus(false);
 
         if (!TT.getInstance().getAccountManager().isLoggedIn()) return;
@@ -194,7 +187,6 @@ Getting realtime pull / push going is pretty straightforward. Simply add TT.getI
 
         // If the sse manager is already connected, set the online presence to away.
         if (TTService.isSSEConnected()) {
-            Timber.v("onActivityStopped about to set online presence to false");
             TT.getInstance().getAccountManager().setOnlinePresence(false);
         }
 
@@ -205,9 +197,6 @@ Getting realtime pull / push going is pretty straightforward. Simply add TT.getI
         try {
             TT.getInstance().startService();
         } catch (IllegalStateException e) {
-            // App *should* be in the foreground, but is crashing on occasion for some reason.
-            // Suppress crash and keep track.
-            // Will retry when the user starts another activity or an FCM is received.
             String errorMessage = "startRealTimeEventsService: Error starting service";
             Timber.e(e, errorMessage);
         }
