@@ -374,7 +374,7 @@ Sending an attachment is very similar to sending a normal message, the differenc
             Message attachmentForSend =  Message.messageForSend("Hello World!", 0,
                     rosterEntry, organizationTTL, photoFile, AttachmentMimeTypes.TYPE_JPG, deleteOnRead);
       
-    TT.getInstance().getConversationManager().sendAttachment(attachmentForSend, shouldDeleteAttachment);
+    	TT.getInstance().getConversationManager().sendAttachment(attachmentForSend, shouldDeleteAttachment);
     }
 
 ## Resending a Message
@@ -384,21 +384,21 @@ Sending an attachment is very similar to sending a normal message, the differenc
 		TT.getInstance().getConversationManager().resendMessage(message.getMessageId());
 		conversationAdapter.addMessage(message);
 		scrollToBottom();
-    	}
+    }
 	
 ## Recalling a Message
 
 	private void recallMessage(Message message) {
 		// Notify our Conversation Manager that this message needs to be recalled
 		TT.getInstance().getConversationManager().recallMessage(message.getMessageId());
-    	}
+    }
 
 ## Forwarding a Message
 
 	private void forwardMessage(Message message) {
 		// Notify our Conversation Manager that this message is to be forwarded
 		TT.getInstance().getConversationManager().forwardMessage(message.getMessageId(), message);
-    	}
+    }
 
 ## Receiving updates for Messages
 In your Conversation View, you would want to subscribe to Message updates like `MESSAGE_ADDED`, `MESSAGE_UPDATED`, `MESSAGES_REMOVED`, etc.
