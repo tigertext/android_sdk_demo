@@ -338,7 +338,7 @@ After authenticating, the SDK will fetch all the recent conversations associated
         }
     }
 
-4.- Loading the messages in a conversation is very similar to the example above, the only difference is that you would be using the ConversationManager to get the messages (paginated) and the events you will have to subscribe to will be message related events, like "New Message", "Message Recalled", "Message Failed", etc, The list of events fired by the SDK can be found in the TTEvent class.
+4.- Loading the messages in a conversation is very similar to the example above, the only difference is that you would be using the ConversationManager to get the messages (paginated) and the events you will have to subscribe to will be message related events, like "Message Added", "Messages Removed", "Message Failed", etc, The list of events fired by the SDK can be found in the TTEvent class.
 
 	TT.getInstance().getConversationManager().getMessagesByPage(rosterEntry, pageSize, topMessage, new GenericActionListener<List<Message>, Throwable>() {
             @Override
@@ -400,7 +400,7 @@ Sending an attachment is very similar to sending a normal message, the differenc
 		TT.getInstance().getConversationManager().forwardMessage(message.getMessageId(), message);
     }
 
-## Receiving updates for Messages
+## Receiving Updates for Messages
 In your Conversation View, you would want to subscribe to Message updates like `MESSAGE_ADDED`, `MESSAGE_UPDATED`, `MESSAGES_REMOVED`, etc.
 
 	@Override
@@ -483,9 +483,15 @@ In your Conversation View, you would want to subscribe to Message updates like `
 Sending a message/attachments is as simple as this, after your message is sent, you will start receiving message related events from the Pubsub pipeline, so, make sure you register for `MESSAGE_STATUS_RECEIVED` to let users know that people have read their conversation. 
 
 ## Creating a Group
+	private void createGroup(String groupName, List<String> users) {
+        // Call this method to notify our Roster Manager to create a group in our server
         TT.getInstance().getRosterManager().createGroup(users, organizationID, groupName, null);
+    }
 
 ## Creating a Forum
-        TT.getInstance().getRosterManager().createRoom(forumName, organizationID, null, forumDescription, null);
+	private void createForum(String forumName, String forumDescription) {
+		// Call this method to notify our Roster Manager to create a forum in our server
+		TT.getInstance().getRosterManager().createRoom(forumName, organizationID, null, forumDescription, null);
+	}
 
 If you need more information about our SDK you can check the [JavaDocs](http://tigertext.github.io/android_sdk_demo/javadoc/)
