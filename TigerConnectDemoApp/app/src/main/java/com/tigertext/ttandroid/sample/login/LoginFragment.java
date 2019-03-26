@@ -95,7 +95,11 @@ public class LoginFragment extends Fragment {
             //Handle logged in user
             Toast.makeText(weakLoginFragment.get().getContext(), "Log In Successful!", Toast.LENGTH_LONG).show();
 
-            // After logging in, make sure to sync with our SDK
+            /**
+             * After logging in, make sure to sync with our SDK
+             * Note that this may take a while, so ideally it would be nice to put some sort of
+             * loading screen here as the SDK syncs
+             */
             syncWithSDK(weakLoginFragment.get());
         }
 

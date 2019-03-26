@@ -26,8 +26,6 @@ public class InboxViewModel extends ViewModel implements TTPubSub.Listener {
             TTEvent.ROSTER_ENTRY_ADDED
     };
 
-    private static final String ORGANIZATION_ID =  SharedPrefs.getInstance().getString(SharedPrefs.ORGANIZATION_ID, Organization.CONSUMER_ORG_ID);
-
     private InboxRepository inboxRepository = new InboxRepository();
 
     public InboxViewModel() {

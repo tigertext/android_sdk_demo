@@ -26,7 +26,7 @@ public enum TCNotificationManager implements TTPubSub.Listener {
     INSTANCE;
 
     private static final String CHANNEL_ID_MESSAGES = "unread_messages";
-    private static final int MESSAGES_NOTIFICATION_ID = 0xBADA55;
+    private static final int MESSAGES_NOTIFICATION_ID = 0;
 
     private static final String[] listeners = {
             TTEvent.MESSAGES_INCREMENTED_UNREAD_COUNT

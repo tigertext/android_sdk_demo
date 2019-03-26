@@ -15,9 +15,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tigertext.ttandroid.Message;
 import com.tigertext.ttandroid.RosterEntry;
+import com.tigertext.ttandroid.account.listener.GenericAPICallStatusListener;
 import com.tigertext.ttandroid.api.TT;
 import com.tigertext.ttandroid.exceptions.TTException;
 import com.tigertext.ttandroid.org.Organization;
@@ -30,6 +32,7 @@ import com.tigertext.ttandroid.sample.conversation.viewmodel.ConversationViewMod
 import com.tigertext.ttandroid.sample.utils.SharedPrefs;
 import com.tigertext.ttandroid.settings.SettingType;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -162,7 +165,7 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
         modifiedSettingsMap.put(SettingType.DND_AUTO_FORWARD_RECEIVER, mRosterEntry.getId());
         // Call this method to notify our Organization Manager to modify the organization settings
         // and set this user as the recipient of our auto forwarded messages
-        TT.getInstance().getOrganizationManager().modifyOrganizationSettings(mRosterEntry.getOrgId(), modifiedSettingsMap, null);
+        TT.getInstance().getOrganizationManager().modifyOrganizationSettings(mRosterEntry.getOrgId(), modifiedSettingsMap, new GetUpdateOrgSettingsListener(this));
     }
 
     /**
@@ -375,6 +378,26 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
         int position = conversationAdapter.getItemCount() - 1;
         if (position > 0) {
             linearLayoutManager.scrollToPosition(position);
+        }
+    }
+
+    private static class GetUpdateOrgSettingsListener implements GenericAPICallStatusListener {
+        WeakReference<ConversationFragment> mFragmentWR;
+
+        GetUpdateOrgSettingsListener(ConversationFragment fragment) {
+            mFragmentWR = new WeakReference<>(fragment);
+        }
+
+        @Override
+        public void onSuccess() {
+            ConversationFragment fragment = mFragmentWR.get();
+            Toast.makeText(fragment.getContext(), "Successfully modified org settings for Autoforwarding", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onError(Throwable error) {
+            ConversationFragment fragment = mFragmentWR.get();
+            Toast.makeText(fragment.getContext(), "Error modifying org settings", Toast.LENGTH_LONG).show();
         }
     }
 }

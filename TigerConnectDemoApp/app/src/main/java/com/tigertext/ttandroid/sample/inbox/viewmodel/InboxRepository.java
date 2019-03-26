@@ -2,6 +2,7 @@ package com.tigertext.ttandroid.sample.inbox.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.widget.Toast;
 
 import com.tigertext.ttandroid.RosterEntry;
 import com.tigertext.ttandroid.api.TT;

@@ -108,6 +108,10 @@ public class InboxFragment extends Fragment implements InboxAdapter.InboxItemCli
         InboxViewModel inboxViewModel = ViewModelProviders.of(this).get(InboxViewModel.class);
         inboxViewModel.updateRosterEntries();
         inboxViewModel.getRosterEntries().observe(this, rosterEntries -> {
+            if (rosterEntries == null || rosterEntries.size() == 0) {
+                Toast.makeText(getContext(), "There are no roster entries in this organization!", Toast.LENGTH_LONG).show();
+            }
+
             inboxAdapter.updateRosterEntries(rosterEntries);
         });
 
