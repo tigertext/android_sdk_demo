@@ -390,6 +390,14 @@ Sending an attachment is very similar to sending a normal message, the differenc
 		// Notify our Conversation Manager that this message is to be forwarded
 		TT.getInstance().getConversationManager().forwardMessage(message.getMessageId(), message);
     }
+## Autoforwarding
+	private void autoForwardToThisUser(RosterEntry rosterEntry) {
+        Map<SettingType, Object> modifiedSettingsMap = new ArrayMap<>(1);
+        modifiedSettingsMap.put(SettingType.DND_AUTO_FORWARD_RECEIVER, rosterEntry.getId());
+        // Call this method to notify our Organization Manager to modify the organization settings
+        // and set this user as the recipient of our auto forwarded messages
+ 	TT.getInstance().getOrganizationManager().modifyOrganizationSettings(mRosterEntry.getOrgId(), modifiedSettingsMap, null);
+    }
 
 ## Receiving Updates for Messages
 In your Conversation View, you would want to subscribe to Message updates like `MESSAGE_ADDED`, `MESSAGE_UPDATED`, `MESSAGES_REMOVED`, etc.
