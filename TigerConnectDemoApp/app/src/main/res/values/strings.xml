@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">TigerConnect Demo App</string>
+    <string name="action_settings">Settings</string>
+    <string name="log_in">Log In</string>
+    <string name="email">username@email.com</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="avatar">Avatar</string>
+    <string name="write_a_message">Write a Message…</string>
+    <string name="send">Send</string>
+    <string name="conversation_name">Conversation Name</string>
+    <string name="option">Option</string>
+    <string name="forum_description">You are about to create a Forum. Messages posted here are public to everyone in your organization.</string>
+    <string name="forum_topic">Forum Topic</string>
+    <string name="description">Description</string>
+    <string name="next">Next</string>
+    <string name="enter_group_name">Enter Group Name</string>
+    <string name="users">Users: (ex: User1,User2…)</string>
+    <string name="create_group">Create Group</string>
+    <string name="new_message">New Message</string>
+    <string name="enter_message_here">Enter message here</string>
+    <string name="send_priority_message">Send Message</string>
+    <string name="priority_message">Priority Message</string>
+    <string name="auto_forward_to_this_user">Auto Forward To This User</string>
+    <string name="read">Read</string>
+</resources>
