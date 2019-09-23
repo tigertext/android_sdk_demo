@@ -60,11 +60,9 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
             TTEvent.MESSAGE_FAILED,
             TTEvent.MESSAGE_ADDED,
             TTEvent.MESSAGE_SENT,
-            TTEvent.MESSAGE_STATUS_RECEIVED,
+            TTEvent.MESSAGE_STATUS_UPDATED,
             TTEvent.MESSAGES_REMOVED,
-            TTEvent.MESSAGES_UPDATED,
             TTEvent.MESSAGE_UPDATED,
-            TTEvent.MESSAGE_STATUS_RECEIVED
     };
 
 
@@ -96,7 +94,7 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setupViewModel();
-        TTPubSub.getInstance().addListeners(this, listeners);
+        TT.getInstance().getTTPubSub().addListeners(this, listeners);
     }
 
     @Override
@@ -152,7 +150,7 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        TTPubSub.getInstance().removeListeners(this, listeners);
+        TT.getInstance().getTTPubSub().removeListeners(this, listeners);
     }
 
 
@@ -182,8 +180,9 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
         int ttl = 0;
         boolean dor = false;
         try {
-            ttl = (int) TT.getInstance().getSettingsManager().get(ORGANIZATION_ID, SettingType.TTL);
-            dor = (boolean) TT.getInstance().getSettingsManager().get(ORGANIZATION_ID, SettingType.DOR);
+            Organization organization = TT.getInstance().getOrganizationManager().getOrganization(ORGANIZATION_ID);
+            ttl = (int) organization.getSettings().get(SettingType.TTL).getValue();
+            dor = (boolean) organization.getSettings().get(SettingType.DOR).getValue();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -323,7 +322,7 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
                 });
             }
             break;
-            case TTEvent.MESSAGE_STATUS_RECEIVED: {
+            case TTEvent.MESSAGE_STATUS_UPDATED: {
                 // This event represents a message status being marked as delivered/read/etc.
                 Timber.d("Message Status Received!");
                 Bundle b = (Bundle) o;

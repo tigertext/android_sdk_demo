@@ -1,14 +1,11 @@
 com.tigertext.ttandroid
-com.tigertext.ttandroid.abk
 com.tigertext.ttandroid.account
 com.tigertext.ttandroid.account.listener
 com.tigertext.ttandroid.api
 com.tigertext.ttandroid.autoforward
-com.tigertext.ttandroid.bolts.tasks
 com.tigertext.ttandroid.bus
 com.tigertext.ttandroid.calendar
 com.tigertext.ttandroid.callback
-com.tigertext.ttandroid.callbacks
 com.tigertext.ttandroid.constant
 com.tigertext.ttandroid.conversation
 com.tigertext.ttandroid.conversation.attachment
@@ -22,12 +19,13 @@ com.tigertext.ttandroid.http
 com.tigertext.ttandroid.http.retrofit
 com.tigertext.ttandroid.http.retrofit.converters
 com.tigertext.ttandroid.message
+com.tigertext.ttandroid.message.escalation
 com.tigertext.ttandroid.models
 com.tigertext.ttandroid.modules.outgoing
+com.tigertext.ttandroid.modules.outgoing.model
 com.tigertext.ttandroid.modules.outgoing.requests
 com.tigertext.ttandroid.mute
 com.tigertext.ttandroid.org
-com.tigertext.ttandroid.org.listener
 com.tigertext.ttandroid.patient
 com.tigertext.ttandroid.prefs
 com.tigertext.ttandroid.provider
@@ -41,7 +39,6 @@ com.tigertext.ttandroid.server
 com.tigertext.ttandroid.settings
 com.tigertext.ttandroid.sse
 com.tigertext.ttandroid.sse.service
-com.tigertext.ttandroid.system
 com.tigertext.ttandroid.upgrade
 com.tigertext.ttandroid.user
 com.tigertext.ttandroid.utils

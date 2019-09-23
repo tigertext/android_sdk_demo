@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 
 import com.tigertext.ttandroid.Message;
 import com.tigertext.ttandroid.RosterEntry;
+import com.tigertext.ttandroid.api.TT;
 import com.tigertext.ttandroid.org.Organization;
 import com.tigertext.ttandroid.pubsub.TTEvent;
 import com.tigertext.ttandroid.pubsub.TTPubSub;
@@ -29,13 +30,12 @@ public class ConversationViewModel extends ViewModel implements TTPubSub.Listene
             TTEvent.ORGS_UPDATED,
             TTEvent.ROSTER_ENTRY_UPDATED,
             TTEvent.MESSAGE_ADDED,
-            TTEvent.MESSAGES_UPDATED,
             TTEvent.MESSAGES_REMOVED
     };
 
     public ConversationViewModel() {
         // Subscribe to PubSubs when component gets created
-        TTPubSub.getInstance().addListeners(this, listeners);
+        TT.getInstance().getTTPubSub().addListeners(this, listeners);
     }
 
     public void init() {
@@ -48,7 +48,7 @@ public class ConversationViewModel extends ViewModel implements TTPubSub.Listene
     @Override
     protected void onCleared() {
         // Unsubscribe from PubSubs when this component gets cleared
-        TTPubSub.getInstance().removeListeners(this, listeners);
+        TT.getInstance().getTTPubSub().removeListeners(this, listeners);
     }
 
     public MutableLiveData<RosterEntry> getSelectedRosterEntry() {

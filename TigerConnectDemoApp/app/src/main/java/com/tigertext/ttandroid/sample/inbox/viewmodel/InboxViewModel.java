@@ -31,13 +31,13 @@ public class InboxViewModel extends ViewModel implements TTPubSub.Listener {
     public InboxViewModel() {
         Timber.d("InboxViewModel constructor called");
         // Register for updates for Roster Entries in Pub Sub
-        TTPubSub.getInstance().addListeners(this, rosterListeners);
+        TT.getInstance().getTTPubSub().addListeners(this, rosterListeners);
     }
 
     @Override
     protected void onCleared() {
         //Unsubscribe from PubSubs when this component gets cleared
-        TTPubSub.getInstance().removeListeners(this, rosterListeners);
+        TT.getInstance().getTTPubSub().removeListeners(this, rosterListeners);
     }
 
     public LiveData<List<RosterEntry>> getRosterEntries() {

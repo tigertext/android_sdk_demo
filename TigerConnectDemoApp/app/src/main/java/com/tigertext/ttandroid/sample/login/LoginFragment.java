@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.tigertext.ttandroid.User;
+import com.tigertext.ttandroid.account.ValidationResponse;
 import com.tigertext.ttandroid.account.listener.LoginListener;
 import com.tigertext.ttandroid.account.listener.LogoutListener;
 import com.tigertext.ttandroid.api.TT;
@@ -88,7 +89,7 @@ public class LoginFragment extends Fragment {
         }
 
         @Override
-        public void onLoggedIn(User user) {
+        public void onLoggedIn(User user, ValidationResponse validationResponse) {
             Timber.d("onLoggedIn");
             Fragment loginFragment = weakLoginFragment.get();
             if (loginFragment == null) return;
