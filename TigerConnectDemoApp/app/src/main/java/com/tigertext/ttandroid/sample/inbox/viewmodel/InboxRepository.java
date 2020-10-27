@@ -1,13 +1,10 @@
 package com.tigertext.ttandroid.sample.inbox.viewmodel;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.widget.Toast;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.tigertext.ttandroid.RosterEntry;
 import com.tigertext.ttandroid.api.TT;
-import com.tigertext.ttandroid.org.Organization;
-import com.tigertext.ttandroid.sample.utils.SharedPrefs;
 
 import java.util.List;
 

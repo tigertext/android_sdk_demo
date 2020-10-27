@@ -1,13 +1,12 @@
 package com.tigertext.ttandroid.sample.conversation.viewmodel;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
+
+import androidx.lifecycle.MutableLiveData;
 
 import com.tigertext.ttandroid.Message;
 import com.tigertext.ttandroid.RosterEntry;
 import com.tigertext.ttandroid.api.TT;
 import com.tigertext.ttandroid.http.GenericActionListener;
-import com.tigertext.ttandroid.org.Organization;
 
 import java.util.List;
 

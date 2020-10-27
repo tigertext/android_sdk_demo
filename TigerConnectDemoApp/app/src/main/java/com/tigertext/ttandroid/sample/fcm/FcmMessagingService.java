@@ -27,7 +27,7 @@ public class FcmMessagingService extends FirebaseMessagingService {
 
         Timber.d("Remote message received via FCM");
         // Notify the TT SDK that a FCM was received.
-        TTGcm.onMessageReceived(message);
+        TTGcm.onMessageReceived(message.getFrom(), message.getData());
         /* If hibernation mode is not on, then only wake up the SSE */
         if (!TT.getInstance().getAccountManager().isHibernationModeOn()) {
             // If app is open or BG Service is enabled, and FCM is received, means that app is not connected to SSE, hence, connect SSE.

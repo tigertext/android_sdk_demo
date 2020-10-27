@@ -1,9 +1,10 @@
 package com.tigertext.ttandroid.sample.inbox.viewmodel;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.tigertext.ttandroid.RosterEntry;
 import com.tigertext.ttandroid.api.TT;

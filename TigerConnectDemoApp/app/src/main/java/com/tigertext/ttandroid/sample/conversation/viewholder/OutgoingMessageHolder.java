@@ -1,8 +1,9 @@
 package com.tigertext.ttandroid.sample.conversation.viewholder;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tigertext.ttandroid.Message;
 import com.tigertext.ttandroid.sample.R;

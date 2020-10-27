@@ -1,13 +1,8 @@
 package com.tigertext.ttandroid.sample.conversation;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.util.ArrayMap;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +11,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.collection.ArrayMap;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tigertext.ttandroid.Message;
 import com.tigertext.ttandroid.RosterEntry;
@@ -35,6 +36,7 @@ import com.tigertext.ttandroid.settings.SettingType;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +59,6 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
     private static final int RESEND_AS_PRIORITY_MESSAGE_INDEX = 3;
 
     private static final String[] listeners = new String[]{
-            TTEvent.MESSAGE_FAILED,
             TTEvent.MESSAGE_ADDED,
             TTEvent.MESSAGE_SENT,
             TTEvent.MESSAGE_STATUS_UPDATED,
@@ -128,7 +129,7 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
     }
 
     private void setupViewModel() {
-        ConversationViewModel conversationViewModel = ViewModelProviders.of(getActivity()).get(ConversationViewModel.class);
+        ConversationViewModel conversationViewModel = new ViewModelProvider(getActivity()).get(ConversationViewModel.class);
         conversationViewModel.init();
         mRosterEntry = conversationViewModel.getSelectedRosterEntry().getValue();
         conversationViewModel.getSelectedRosterEntry().observe(this, rosterEntry -> {
@@ -283,33 +284,34 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
 
         switch (event) {
             case TTEvent.MESSAGE_ADDED: {
+                Message message = (Message) o;
                 /**
                  *  It may also be useful to check if the fragment is alive as well!
                  */
                 // Confirm that this new message is for this conversation and organization,
                 // if not, return early
-                if (!isEventForRosterEntryOrg(o)) return;
+                if (!isEventForRosterEntryOrg(message)) return;
 
                 Timber.d("Message Added");
-                Message message = (Message) o;
 
                 /**
                  onEventReceived is done on a background thread, so make sure to publish your logic
                  on the UI thread
                  */
                 getActivity().runOnUiThread(() -> {
-                    if (getUserVisibleHint()) {
-                        // This is how you mark a conversation as read
-                        TT.getInstance().getConversationManager().markConversationAsRead(mRosterEntry);
-                    }
                     conversationAdapter.addMessage(message);
                     scrollToBottom();
+                    // This is how you mark a conversation as read
+                    TT.getInstance().getConversationManager().markConversationAsRead(mRosterEntry);
                 });
             }
             break;
+            case TTEvent.MESSAGE_STATUS_UPDATED:
             case TTEvent.MESSAGE_UPDATED: {
-                if (!isEventForRosterEntryOrg(o)) return;
+                Message message = (Message) o;
+                if (!isEventForRosterEntryOrg(message)) return;
                 Timber.d("Message Updated");
+                getActivity().runOnUiThread(() -> conversationAdapter.updateMessages(Collections.singletonList(message)));
             }
             break;
             case TTEvent.MESSAGES_REMOVED: {
@@ -322,47 +324,11 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
                 });
             }
             break;
-            case TTEvent.MESSAGE_STATUS_UPDATED: {
-                // This event represents a message status being marked as delivered/read/etc.
-                Timber.d("Message Status Received!");
-                Bundle b = (Bundle) o;
-                if (!isEventForRosterEntryOrg(b)) return;
-
-                String statusString = b.getString(com.tigertext.ttandroid.constant.TTConstants.STATUS);
-                Message.Status status = null;
-                if (statusString != null) {
-                    status = Message.Status.valueOf(statusString.toUpperCase());
-                }
-                if (status == Message.Status.DELIVERED && mRosterEntry.isGroup()) {
-                    /***
-                     * If status is Delivered and its a group, do nothing
-                     */
-                    return;
-                }
-
-                final Message m = b.getParcelable(com.tigertext.ttandroid.constant.TTConstants.MESSAGE);
-                if (m != null && mRosterEntry.getId().equals(m.getRosterId())) {
-                    getActivity().runOnUiThread(() -> {
-                        conversationAdapter.markMessageAsRead(m);
-                    });
-                }
-            }
-            break;
         }
     }
 
-    private boolean isEventForRosterEntryOrg(Object obj) {
-        if (obj instanceof Bundle) {
-            Bundle bundle = (Bundle) obj;
-            Message message = bundle.getParcelable(TTEvent.EXTRA_MESSAGE);
-            return isEventOrgSameAsEntryOrg(message != null ? message.getRecipientOrgId() : null);
-        }
-
-        if (obj instanceof Message) {
-            Message message = (Message) obj;
-            return isEventOrgSameAsEntryOrg(message.getRecipientOrgId());
-        }
-        return false;
+    private boolean isEventForRosterEntryOrg(Message obj) {
+        return isEventOrgSameAsEntryOrg(((Message) obj).getRecipientOrgId());
     }
 
     private boolean isEventOrgSameAsEntryOrg(String organizationID) {

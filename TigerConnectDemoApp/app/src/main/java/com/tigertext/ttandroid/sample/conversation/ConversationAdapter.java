@@ -1,10 +1,11 @@
 package com.tigertext.ttandroid.sample.conversation;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tigertext.ttandroid.Message;
 import com.tigertext.ttandroid.sample.R;

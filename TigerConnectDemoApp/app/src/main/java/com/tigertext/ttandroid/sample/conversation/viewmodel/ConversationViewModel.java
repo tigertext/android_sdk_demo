@@ -1,10 +1,11 @@
 package com.tigertext.ttandroid.sample.conversation.viewmodel;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.tigertext.ttandroid.Message;
 import com.tigertext.ttandroid.RosterEntry;
@@ -15,8 +16,6 @@ import com.tigertext.ttandroid.pubsub.TTPubSub;
 
 import java.util.Collection;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class ConversationViewModel extends ViewModel implements TTPubSub.Listener {
     private MutableLiveData<RosterEntry> selectedRosterEntry;

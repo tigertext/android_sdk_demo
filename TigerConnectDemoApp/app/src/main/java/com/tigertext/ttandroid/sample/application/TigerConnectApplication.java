@@ -1,9 +1,10 @@
 package com.tigertext.ttandroid.sample.application;
 
-import android.arch.lifecycle.ProcessLifecycleOwner;
 import android.content.IntentFilter;
-import android.support.multidex.MultiDexApplication;
-import android.support.v4.content.LocalBroadcastManager;
+
+import androidx.lifecycle.ProcessLifecycleOwner;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.multidex.MultiDexApplication;
 
 import com.tigertext.ttandroid.api.TT;
 import com.tigertext.ttandroid.gcm.TTGcm;
