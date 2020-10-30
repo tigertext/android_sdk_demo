@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/voip_avatar"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/voip_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0"
+        android:text="Invite"
+        android:textAllCaps="false"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/participant_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/new_title_gray"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/role_tag_name"
+        app:layout_constraintEnd_toStartOf="@id/voip_call"
+        app:layout_constraintStart_toEndOf="@id/voip_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="@tools:sample/full_names" />
+
+    <TextView
+        android:id="@+id/role_tag_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/search_faded_gray"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@id/participant_status"
+        app:layout_constraintEnd_toStartOf="@id/voip_call"
+        app:layout_constraintStart_toEndOf="@id/voip_avatar"
+        app:layout_constraintTop_toBottomOf="@id/participant_name"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Role Tag Name" />
+
+    <TextView
+        android:id="@+id/participant_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/search_faded_gray"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/voip_call"
+        app:layout_constraintStart_toEndOf="@id/voip_avatar"
+        app:layout_constraintTop_toBottomOf="@id/role_tag_name"
+        tools:text="Connected" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

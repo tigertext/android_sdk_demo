@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/voipCallRootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/participant_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/voip_participant_tile_height"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/view_voip_participant_tile"
+        tools:orientation="horizontal" />
+
+    <include
+        android:id="@+id/caller_grid"
+        layout="@layout/layout_voip_grid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/participant_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+    <include
+        android:id="@+id/localUserVideo"
+        layout="@layout/view_twilio_video"
+        android:layout_width="@dimen/local_user_video_width"
+        android:layout_height="@dimen/local_user_video_height"
+        android:layout_marginTop="@dimen/voip_common_horizontal_margin"
+        android:layout_marginEnd="@dimen/voip_common_horizontal_margin"
+        android:layout_marginRight="@dimen/voip_common_horizontal_margin"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/videoShadow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/voip_video_shadow_color"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/statusPill"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/pill_background"
+        android:gravity="center"
+        android:paddingLeft="50dp"
+        android:paddingTop="10dp"
+        android:paddingRight="50dp"
+        android:paddingBottom="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="wrap"
+        tools:backgroundTint="@color/tt_connecting_green"
+        tools:text="call connection status">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/avatarImage"
+        android:layout_width="@dimen/voip_avatar_size"
+        android:layout_height="@dimen/voip_avatar_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/displayName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/voip_common_horizontal_margin"
+        android:layout_marginLeft="@dimen/voip_common_horizontal_margin"
+        android:layout_marginTop="@dimen/voip_display_name_margin_top"
+        android:layout_marginEnd="@dimen/voip_common_horizontal_margin"
+        android:layout_marginRight="@dimen/voip_common_horizontal_margin"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/view_component_text_view"
+        android:textSize="@dimen/voip_display_name_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/avatarImage"
+        tools:text="Jamie Hariz" />
+
+    <TextView
+        android:id="@+id/tagNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/voip_call_state_margin_top"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/view_component_text_view"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/displayName"
+        tools:text="Role Tag Name" />
+
+    <TextView
+        android:id="@+id/callViaTT"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/voip_common_horizontal_margin"
+        android:layout_marginLeft="@dimen/voip_common_horizontal_margin"
+        android:layout_marginTop="@dimen/voip_call_via_margin_top"
+        android:layout_marginEnd="@dimen/voip_common_horizontal_margin"
+        android:layout_marginRight="@dimen/voip_common_horizontal_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/audio_call_via_tigertext"
+        android:textColor="@color/attachment_preview_text"
+        android:textSize="@dimen/voip_call_via_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tagNameTextView" />
+
+    <TextView
+        android:id="@+id/callState"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/voip_common_horizontal_margin"
+        android:layout_marginLeft="@dimen/voip_common_horizontal_margin"
+        android:layout_marginTop="@dimen/voip_call_state_margin_top"
+        android:layout_marginEnd="@dimen/voip_common_horizontal_margin"
+        android:layout_marginRight="@dimen/voip_common_horizontal_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/ringing"
+        android:textColor="@color/attachment_preview_text"
+        android:textSize="@dimen/voip_call_state_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/callViaTT"
+        tools:text="Ringing..." />
+
+    <com.tigertext.ttandroid.sample.views.CircleButton
+        android:id="@+id/muteCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:visibility="gone"
+        app:active_circle_background_color="@color/view_component_button"
+        app:active_icon_color="@color/white"
+        app:circle_icon="@drawable/ic_round_mic_off"
+        app:circle_icon_padding="@dimen/voip_common_circle_icon_padding"
+        app:layout_constraintBottom_toTopOf="@id/declineCall"
+        app:layout_constraintEnd_toStartOf="@id/videoCall"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+    <com.tigertext.ttandroid.sample.views.CircleButton
+        android:id="@+id/videoCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:visibility="gone"
+        app:active_circle_background_color="@color/view_component_button"
+        app:active_icon_color="@color/white"
+        app:circle_icon="@drawable/ic_video_camera_off"
+        app:circle_icon_padding="@dimen/voip_common_circle_icon_padding"
+        app:layout_constraintBottom_toTopOf="@id/declineCall"
+        app:layout_constraintEnd_toStartOf="@id/switchCamera"
+        app:layout_constraintStart_toEndOf="@id/muteCall"
+        tools:visibility="visible" />
+
+    <com.tigertext.ttandroid.sample.views.CircleButton
+        android:id="@+id/switchCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:visibility="gone"
+        app:active_circle_background_color="@color/view_component_button"
+        app:active_icon_color="@color/white"
+        app:circle_icon="@drawable/ic_switch_camera"
+        app:circle_icon_padding="@dimen/voip_common_circle_icon_padding"
+        app:layout_constraintBottom_toTopOf="@id/declineCall"
+        app:layout_constraintEnd_toStartOf="@id/speakerCall"
+        app:layout_constraintStart_toEndOf="@id/videoCall"
+        tools:visibility="visible" />
+
+    <com.tigertext.ttandroid.sample.views.CircleButton
+        android:id="@+id/speakerCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:tooltipText="@string/speaker"
+        android:visibility="gone"
+        app:active_circle_background_color="@color/view_component_button"
+        app:active_icon_color="@color/white"
+        app:circle_icon="@drawable/ic_round_volume_up"
+        app:circle_icon_padding="@dimen/voip_common_circle_icon_padding"
+        app:layout_constraintBottom_toTopOf="@id/declineCall"
+        app:layout_constraintEnd_toStartOf="@id/sendMessageOrBoostVolume"
+        app:layout_constraintStart_toEndOf="@id/switchCamera"
+        tools:visibility="visible" />
+
+    <com.tigertext.ttandroid.sample.views.CircleButton
+        android:id="@+id/sendMessageOrBoostVolume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:visibility="gone"
+        app:active_circle_background_color="@color/view_component_button"
+        app:active_icon_color="@color/white"
+        app:circle_icon="@drawable/ic_message_create"
+        app:circle_icon_padding="@dimen/voip_common_circle_icon_padding"
+        app:layout_constraintBottom_toTopOf="@id/declineCall"
+        app:layout_constraintEnd_toStartOf="@id/participants"
+        app:layout_constraintStart_toEndOf="@id/speakerCall"
+        tools:visibility="visible" />
+
+    <com.tigertext.ttandroid.sample.views.CircleButton
+        android:id="@+id/participants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:tooltipText="@string/participants"
+        android:visibility="gone"
+        app:active_circle_background_color="@color/view_component_button"
+        app:active_icon_color="@color/white"
+        app:circle_icon="@drawable/ic_group_add"
+        app:circle_icon_padding="@dimen/voip_common_circle_icon_padding"
+        app:layout_constraintBottom_toTopOf="@id/declineCall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/sendMessageOrBoostVolume"
+        tools:visibility="visible" />
+
+    <com.tigertext.ttandroid.sample.views.CircleButton
+        android:id="@+id/declineCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/voip_accept_decline_margin_bottom"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:circle_background_color="@android:color/holo_red_dark"
+        app:circle_icon="@drawable/ic_call_decline"
+        app:circle_icon_color="@color/white"
+        app:circle_icon_padding="@dimen/voip_common_circle_icon_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/acceptCall"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.tigertext.ttandroid.sample.views.CircleButton
+        android:id="@+id/acceptCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/voip_accept_decline_margin_bottom"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:tooltipText="@string/accept"
+        app:circle_background_color="@color/on_duty_text_color"
+        app:circle_icon="@drawable/ic_round_call"
+        app:circle_icon_color="@color/white"
+        app:circle_icon_padding="@dimen/voip_common_circle_icon_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/declineCall" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/buttons_top_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierAllowsGoneWidgets="false"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="videoCall,switchCamera,speakerCall,sendMessageOrBoostVolume,participants" />
+
+    <View
+        android:id="@+id/screenDimmer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dimmed_screen_color"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

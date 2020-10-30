@@ -3,6 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tigertext.ttandroid.sample">
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
     <application
         android:name=".application.TigerConnectApplication"
         android:allowBackup="false"
@@ -24,11 +32,38 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".voip.VoIPSelectionActivity" />
+        <activity
+            android:name=".voip.VoIPCallActivity"
+            android:autoRemoveFromRecents="true"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
+            android:documentLaunchMode="intoExisting"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true" />
+
         <service android:name=".fcm.FcmMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <!-- For notification actions -->
+        <receiver
+            android:name=".notification.NotificationBroadcastReceiver"
+            android:exported="false">
+        </receiver>
+
+        <service
+            android:name="com.tigertext.ttandroid.sample.voip.service.CallConnectionService"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE">
+            <intent-filter>
+                <action android:name="android.telecom.ConnectionService" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

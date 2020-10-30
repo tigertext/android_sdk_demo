@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/clearButton"
+        android:layout_width="@dimen/icon_default_size"
+        android:layout_height="@dimen/icon_default_size"
+        android:layout_alignParentRight="true"
+        android:background="?attr/actionBarItemBackground"
+        android:padding="@dimen/icon_default_padding"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_close"
+        tools:visibility="visible"
+        app:tint="@color/tag_search_icon" />
+
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/clearButton"
+        android:background="@null"
+        android:hint="@string/search"
+        android:inputType="textFilter" />
+
+</RelativeLayout>

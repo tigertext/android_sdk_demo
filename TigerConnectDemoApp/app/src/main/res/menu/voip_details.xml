@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_participant"
+        android:icon="@drawable/ic_round_person_add"
+        android:title="Invite"
+        app:iconTint="@color/icon_tint_gray"
+        app:showAsAction="always|collapseActionView" />
+
+</menu>

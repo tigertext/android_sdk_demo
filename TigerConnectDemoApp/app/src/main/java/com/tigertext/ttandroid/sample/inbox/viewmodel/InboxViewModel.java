@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.tigertext.ttandroid.RosterEntry;
 import com.tigertext.ttandroid.api.TT;
+import com.tigertext.ttandroid.exceptions.TTException;
 import com.tigertext.ttandroid.org.Organization;
 import com.tigertext.ttandroid.pubsub.TTEvent;
 import com.tigertext.ttandroid.pubsub.TTPubSub;
@@ -46,6 +47,11 @@ public class InboxViewModel extends ViewModel implements TTPubSub.Listener {
     }
 
     public void updateRosterEntries() {
+        try {
+            TT.getInstance().getOrganizationManager().initOrganizationsManager();
+        } catch (TTException e) {
+            Timber.e(e, "Error init OrganizationManager");
+        }
         inboxRepository.updateRosterEntries(getRandomOrganizationID());
     }
 

@@ -1,3 +1,38 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+
+    <dimen name="default_circle_button_bg_size">60dp</dimen>
+    <dimen name="default_circle_button_icon_padding">18dp</dimen>
+    <dimen name="voip_avatar_size">130dp</dimen>
+    <dimen name="voip_common_horizontal_margin">16dp</dimen>
+    <dimen name="voip_display_name_margin_top">11dp</dimen>
+    <dimen name="voip_display_name_text_size">20sp</dimen>
+    <dimen name="voip_call_state_margin_top">7dp</dimen>
+    <dimen name="voip_call_state_text_size">14sp</dimen>
+    <dimen name="voip_common_circle_icon_padding">@dimen/default_circle_button_icon_padding</dimen>
+    <dimen name="voip_call_via_margin_top">7dp</dimen>
+    <dimen name="voip_call_via_text_size">14sp</dimen>
+    <dimen name="voip_accept_decline_margin_bottom">32dp</dimen>
+    <dimen name="circle_button_common_spacing">8dp</dimen>
+    <dimen name="circle_around_role_overlay_size">40dp</dimen>
+    <dimen name="role_overlay_icon_size">33dp</dimen>
+    <dimen name="local_user_video_height">180dp</dimen>
+    <dimen name="local_user_video_width">140dp</dimen>
+
+    <!-- Voip Participant -->
+    <dimen name="voip_participant_label_margin_left">10dp</dimen>
+    <dimen name="voip_participant_label_margin_bottom">10dp</dimen>
+    <dimen name="voip_participant_tile_width">130dp</dimen>
+    <dimen name="voip_participant_tile_height">130dp</dimen>
+
+    <dimen name="bottom_sheet_select_item_height">56dp</dimen>
+    <dimen name="bottom_sheet_select_icon_left_margin">16dp</dimen>
+    <dimen name="bottom_sheet_select_label_left_margin">32dp</dimen>
+    <dimen name="bottom_sheet_select_label_text_size">16sp</dimen>
+    <dimen name="material_icon_size">24dp</dimen>
+
+    <dimen name="icon_default_size">48dp</dimen>
+    <dimen name="icon_default_padding">12dp</dimen>
+
 </resources>

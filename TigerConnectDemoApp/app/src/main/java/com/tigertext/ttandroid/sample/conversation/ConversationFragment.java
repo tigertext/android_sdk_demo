@@ -1,9 +1,11 @@
 package com.tigertext.ttandroid.sample.conversation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,7 +32,10 @@ import com.tigertext.ttandroid.sample.R;
 import com.tigertext.ttandroid.sample.bottomsheet.BottomSheetOptions;
 import com.tigertext.ttandroid.sample.bottomsheet.BottomSheetOptionsAdapter;
 import com.tigertext.ttandroid.sample.conversation.viewmodel.ConversationViewModel;
+import com.tigertext.ttandroid.sample.databinding.ConversationFragmentBinding;
 import com.tigertext.ttandroid.sample.utils.SharedPrefs;
+import com.tigertext.ttandroid.sample.utils.TTCallUtils;
+import com.tigertext.ttandroid.sample.utils.TTIntentUtils;
 import com.tigertext.ttandroid.settings.SettingType;
 
 import java.lang.ref.WeakReference;
@@ -39,6 +44,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import timber.log.Timber;
 
@@ -67,10 +73,12 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
     };
 
 
+    private ConversationViewModel viewModel;
+    private ConversationFragmentBinding binding;
+
     private EditText messageEditText;
     private CheckBox priorityCheckBox;
     private RecyclerView recyclerConversation;
-    private TextView conversationName;
     private ConversationAdapter conversationAdapter;
     LinearLayoutManager linearLayoutManager;
     private RosterEntry mRosterEntry;
@@ -78,16 +86,34 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.conversation_fragment, container, false);
+        binding = ConversationFragmentBinding.inflate(inflater, container, false);
+        View rootView = binding.getRoot();
         recyclerConversation = rootView.findViewById(R.id.recycler_conversation);
-        conversationName = rootView.findViewById(R.id.conversation_name);
         priorityCheckBox = rootView.findViewById(R.id.priority_checkbox);
         setupRecyclerView();
         messageEditText = rootView.findViewById(R.id.message_edit_text);
-        Button autoForwardButton = rootView.findViewById(R.id.auto_forward_button);
-        autoForwardButton.setOnClickListener(v -> autoForwardToThisUser());
         Button sendButton = rootView.findViewById(R.id.send_button);
         sendButton.setOnClickListener(v -> sendMessage(messageEditText.getText().toString()));
+
+        binding.toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
+        binding.toolbar.getMenu().findItem(R.id.auto_forward).setOnMenuItemClickListener(item -> {
+            autoForwardToThisUser();
+            return true;
+        });
+        binding.toolbar.getMenu().findItem(R.id.call).setOnMenuItemClickListener(item -> {
+            Set<Integer> callOptions = TTCallUtils.getCallOptions(mRosterEntry, requireContext());
+            if (callOptions.isEmpty()) {
+                Toast.makeText(requireContext(), "No call options available", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = TTIntentUtils.getCallIntent(requireContext(), mRosterEntry, callOptions);
+                if (intent != null) {
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(requireContext(), "No call intent available", Toast.LENGTH_SHORT).show();
+                }
+            }
+            return true;
+        });
         return rootView;
     }
 
@@ -129,18 +155,18 @@ public class ConversationFragment extends Fragment implements ConversationAdapte
     }
 
     private void setupViewModel() {
-        ConversationViewModel conversationViewModel = new ViewModelProvider(getActivity()).get(ConversationViewModel.class);
-        conversationViewModel.init();
-        mRosterEntry = conversationViewModel.getSelectedRosterEntry().getValue();
-        conversationViewModel.getSelectedRosterEntry().observe(this, rosterEntry -> {
+        viewModel = new ViewModelProvider(getActivity()).get(ConversationViewModel.class);
+        viewModel.init();
+        mRosterEntry = viewModel.getSelectedRosterEntry().getValue();
+        viewModel.getSelectedRosterEntry().observe(getViewLifecycleOwner(), rosterEntry -> {
             if (rosterEntry == null) return;
 
             mRosterEntry = rosterEntry;
-            conversationName.setText(rosterEntry.getDisplayName());
+            binding.toolbar.setTitle(rosterEntry.getDisplayName());
         });
 
-        conversationViewModel.updateMessages(mRosterEntry, PAGE_SIZE, null);
-        conversationViewModel.getMessages().observe(this, messages -> {
+        viewModel.updateMessages(mRosterEntry, PAGE_SIZE, null);
+        viewModel.getMessages().observe(getViewLifecycleOwner(), messages -> {
             if (messages == null) return;
 
             Timber.d("Messages size: %s", messages.size());

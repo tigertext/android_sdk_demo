@@ -24,4 +24,78 @@
     <string name="priority_message">Priority Message</string>
     <string name="auto_forward_to_this_user">Auto Forward To This User</string>
     <string name="read">Read</string>
+
+
+    <string name="you">You</string>
+    <string name="join_string_parenthesis_string">%1$s (%2$s)</string>
+    <string name="patient">Patient</string>
+    <string name="string_parenthesis">(%1$s)</string>
+    <plurals name="assigned_roles">
+        <item quantity="one">%d Role</item>
+        <item quantity="other">%d Roles</item>
+    </plurals>
+    <string name="audio_call_via_tigertext">Audio call via TigerConnect</string>
+    <string name="ringing">Ringing…</string>
+    <string name="waiting_for_participants_to_join">Waiting for participants to join</string>
+    <string name="participants">Participants</string>
+    <string name="speaker">Speaker</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="timer_secs_format">%1$02d:%2$02d</string>
+    <string name="connecting">Connecting…</string>
+    <string name="no_one_on_duty_to_call">No one on duty to call</string>
+    <string name="answer">Answer</string>
+    <string name="incoming_audio_call">Incoming %s</string>
+    <string name="ongoing_audio_call">Ongoing %s</string>
+    <string name="missed_call">Missed Call</string>
+    <string name="on_hold">On hold</string>
+    <string name="end_call">End Call</string>
+    <string name="video_call">Video Call</string>
+    <string name="voice_call">Audio Call</string>
+    <string name="name_wants_you_to_join_a_group_type_call">"%1$s wants you to join a group %2$s</string>
+    <string name="name_group_call">%1$s (Group Call)</string>
+    <string name="call_on_hold">Call on hold</string>
+    <string name="call_muted">Call muted</string>
+    <string name="video_call_via_tt">Video Call via TigerConnect</string>
+
+    <!-- Voip participant snackbars -->
+    <string name="name_joined_the_call">%1$s joined the call</string>
+    <string name="name_left_the_call">%1$s left the call</string>
+    <string name="name_didnt_answer">%1$s didn\'t answer</string>
+    <string name="name_declined_the_call">%1$s declined the call</string>
+
+    <string name="call_limit_reached">Limit Reached. You cannot have more than %1$d persons on a call.</string>
+
+    <string name="declined_call">Declined Call</string>
+    <string name="left_call">Left Call</string>
+    <string name="unavailable">Unavailable</string>
+
+    <!--Voip call ended messages-->
+    <string name="voip_call_ended_timeout">Connection timed out</string>
+    <string name="voip_call_ended_failed">Call Failed</string>
+    <string name="voip_call_ended_hung_up">Call Ended</string>
+    <string name="voip_call_ended_cancelled">Call Cancelled</string>
+    <string name="voip_call_ended_transfered">Call Transferred</string>
+    <string name="voip_call_ended_elsewhere">Call Ended Elsewhere</string>
+    <string name="user_is_busy">User is Busy</string>
+
+    <string name="reconnecting">Reconnecting…</string>
+    <string name="reconnected">Reconnected</string>
+
+    <string name="bottom_option_video_label">TigerConnect Video</string>
+    <string name="bottom_option_voip_label">TigerConnect Voice</string>
+    <string name="bottom_option_c2c_label">Call Mobile</string>
+
+    <string name="providers">Providers</string>
+    <string name="related_contacts">Related Contacts</string>
+    <string name="patient_and_contacts">Patient &amp; Contacts</string>
+    <string name="search">Search</string>
+    <string name="participants_count">Participants (%1$d)</string>
+    <string name="patient_group_call_limit">Group calls with patients are limited to %1$d members at a time.</string>
+    <string name="on_duty_user">On Duty: %1$s</string>
+    <string name="connected">Connected</string>
+    <string name="do_not_disturb">Do Not Disturb</string>
+    <string name="patient_opted_out_via_sms">Opted out via SMS</string>
+    <string name="call">Call</string>
+
 </resources>

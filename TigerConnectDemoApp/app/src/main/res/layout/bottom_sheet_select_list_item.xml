@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_sheet_select_item_height"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/bottomSheetSelectItemIcon"
+        android:layout_width="@dimen/material_icon_size"
+        android:layout_height="@dimen/material_icon_size"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/bottom_sheet_select_icon_left_margin"
+        android:layout_marginLeft="@dimen/bottom_sheet_select_icon_left_margin"
+        tools:src="@drawable/ic_round_call"
+        app:tint="@color/icons_gray_color" />
+
+    <TextView
+        android:id="@+id/bottomSheetSelectItemLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/bottom_sheet_select_label_left_margin"
+        android:layout_marginLeft="@dimen/bottom_sheet_select_label_left_margin"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/icons_gray_color"
+        android:textSize="@dimen/bottom_sheet_select_label_text_size"
+        tools:text="Call" />
+
+</LinearLayout>

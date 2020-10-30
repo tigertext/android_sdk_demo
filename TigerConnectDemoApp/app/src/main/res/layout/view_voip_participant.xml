@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/voip_participant_background"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <ImageView
+        android:id="@+id/pulse_ring"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/circle_gray_solid"
+        app:layout_constraintBottom_toBottomOf="@id/caller_avatar"
+        app:layout_constraintEnd_toEndOf="@id/caller_avatar"
+        app:layout_constraintStart_toStartOf="@id/caller_avatar"
+        app:layout_constraintTop_toTopOf="@id/caller_avatar"
+        app:tint="#b9c4ca" />
+
+    <ImageView
+        android:id="@+id/caller_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/empty_avatar" />
+
+    <TextView
+        android:id="@+id/caller_state"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:text="@string/ringing"
+        android:textColor="@color/tag_apply_button"
+        android:textSize="12sp"
+        app:drawableLeftCompat="@drawable/ic_round_call"
+        app:drawableTint="@color/tag_apply_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/caller_avatar"
+        app:layout_constraintWidth_max="wrap" />
+
+    <include
+        android:id="@+id/caller_video"
+        layout="@layout/view_twilio_video"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/dominant_speaker_border"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/stroke_dominant_speaker"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/voip_left_guideline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/voip_participant_label_margin_left" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/voip_bottom_guideline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/voip_participant_label_margin_bottom" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_label_voip"
+        app:layout_constraintBottom_toBottomOf="@id/voip_bottom_guideline"
+        app:layout_constraintLeft_toLeftOf="@id/voip_left_guideline"
+        app:layout_constraintRight_toRightOf="@id/caller_name_barrier"
+        app:layout_constraintTop_toTopOf="@id/caller_name" />
+
+    <ImageView
+        android:id="@+id/caller_mute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/voip_participant_label_margin_left"
+        app:layout_constraintBottom_toBottomOf="@id/voip_bottom_guideline"
+        app:layout_constraintLeft_toLeftOf="@id/voip_left_guideline"
+        app:layout_constraintTop_toTopOf="@id/caller_name"
+        app:srcCompat="@drawable/ic_round_mic_off"
+        app:tint="@android:color/holo_red_dark" />
+
+    <TextView
+        android:id="@+id/caller_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/voip_participant_label_margin_left"
+        android:layout_marginBottom="0dp"
+        android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@id/caller_subname"
+        app:layout_constraintLeft_toRightOf="@id/caller_mute"
+        app:layout_goneMarginBottom="4dp"
+        tools:text="On-Call ER Doctor" />
+
+    <TextView
+        android:id="@+id/caller_subname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/voip_participant_label_margin_left"
+        android:paddingRight="8dp"
+        android:paddingBottom="4dp"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/voip_bottom_guideline"
+        app:layout_constraintLeft_toRightOf="@id/caller_mute"
+        tools:text="(Jeremy Yuan)" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/caller_name_barrier"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierAllowsGoneWidgets="false"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="caller_name,caller_subname" />
+
+</merge>

@@ -12,17 +12,13 @@ import timber.log.Timber;
 
 class InboxRepository {
 
-    private MutableLiveData<List<RosterEntry>> rosterEntriesLiveData;
+    private MutableLiveData<List<RosterEntry>> rosterEntriesLiveData = new MutableLiveData<>();;
 
     LiveData<List<RosterEntry>> getRosterEntriesLiveData() {
         return rosterEntriesLiveData;
     }
 
     void updateRosterEntries(String randomOrganizationID) {
-        if (rosterEntriesLiveData != null) return;
-
-        rosterEntriesLiveData = new MutableLiveData<>();
-
         // This is how you get all the inbox entries for a specific Organization
         // Checks to see if Inbox Entries was fetched recently. If they were, grab from database.
         // Else, make network request to fetch new roster entries.

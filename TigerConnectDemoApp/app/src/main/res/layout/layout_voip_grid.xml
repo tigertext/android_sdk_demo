@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    app:columnCount="2">
+
+    <!-- More Views may be added later, this is to preload some into the hierarchy -->
+    <com.tigertext.ttandroid.sample.voip.video.VoipParticipantView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/cardview_dark_background"
+        android:visibility="gone"
+        app:layout_columnSpan="1"
+        app:layout_columnWeight="1"
+        app:layout_rowWeight="1"
+        tools:visibility="visible" />
+
+</androidx.gridlayout.widget.GridLayout>

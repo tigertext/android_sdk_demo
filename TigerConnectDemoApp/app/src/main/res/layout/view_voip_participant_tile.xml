@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.tigertext.ttandroid.sample.voip.video.VoipParticipantView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/voip_participant_tile_width"
+    android:layout_height="match_parent"
+    android:background="@drawable/voip_participant_background"
+    android:foreground="?attr/selectableItemBackground" />

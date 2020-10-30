@@ -26,6 +26,7 @@ import com.tigertext.ttandroid.sample.bottomsheet.BottomSheetOptions;
 import com.tigertext.ttandroid.sample.bottomsheet.BottomSheetOptionsAdapter;
 import com.tigertext.ttandroid.sample.conversation.ConversationFragment;
 import com.tigertext.ttandroid.sample.conversation.viewmodel.ConversationViewModel;
+import com.tigertext.ttandroid.sample.databinding.InboxFragmentBinding;
 import com.tigertext.ttandroid.sample.faboptions.NewForumFragment;
 import com.tigertext.ttandroid.sample.faboptions.NewGroupFragment;
 import com.tigertext.ttandroid.sample.inbox.viewmodel.InboxViewModel;
@@ -44,6 +45,9 @@ public class InboxFragment extends Fragment implements InboxAdapter.InboxItemCli
     private static final int NEW_FORUM_INDEX = 0;
     private static final int NEW_GROUP_INDEX = 1;
 
+    private InboxFragmentBinding binding;
+    private InboxViewModel viewModel;
+
     private RecyclerView recyclerInbox;
     private InboxAdapter inboxAdapter;
     private ConversationViewModel conversationViewModel;
@@ -52,7 +56,9 @@ public class InboxFragment extends Fragment implements InboxAdapter.InboxItemCli
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Timber.d("InboxContactsFragment onCreateView");
-        View rootView = inflater.inflate(R.layout.inbox_fragment, container, false);
+        binding = InboxFragmentBinding.inflate(inflater, container, false);
+        binding.switchOrgButton.setOnClickListener(v -> viewModel.updateRosterEntries());
+        View rootView = binding.getRoot();
         recyclerInbox = rootView.findViewById(R.id.recycler_inbox);
         inboxAdapter = new InboxAdapter(this);
         setupRecyclerView();
@@ -106,9 +112,9 @@ public class InboxFragment extends Fragment implements InboxAdapter.InboxItemCli
     }
 
     private void setupViewModel() {
-        InboxViewModel inboxViewModel = new ViewModelProvider(this).get(InboxViewModel.class);
-        inboxViewModel.updateRosterEntries();
-        inboxViewModel.getRosterEntries().observe(this, rosterEntries -> {
+        viewModel = new ViewModelProvider(this).get(InboxViewModel.class);
+        viewModel.updateRosterEntries();
+        viewModel.getRosterEntries().observe(this, rosterEntries -> {
             if (rosterEntries == null || rosterEntries.size() == 0) {
                 Toast.makeText(getContext(), "There are no roster entries in this organization!", Toast.LENGTH_LONG).show();
             }
