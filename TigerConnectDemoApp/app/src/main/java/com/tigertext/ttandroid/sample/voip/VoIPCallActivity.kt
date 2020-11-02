@@ -143,7 +143,11 @@ class VoIPCallActivity : AppCompatActivity(), SensorEventListener {
 
     private fun updateAvatar() {
         presenter?.rosterEntryLiveData?.value?.let {
-            Picasso.get().load(it.avatarUrl).into(avatarImage)
+            if (it.avatarUrl.isNullOrEmpty()) {
+                Picasso.get().cancelRequest(avatarImage)
+            } else {
+                Picasso.get().load(it.avatarUrl).into(avatarImage)
+            }
             return
         }
     }

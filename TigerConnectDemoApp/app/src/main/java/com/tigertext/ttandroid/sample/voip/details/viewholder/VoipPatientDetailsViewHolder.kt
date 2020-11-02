@@ -16,7 +16,11 @@ class VoipPatientDetailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val binding = RowVoipDetailPatientBinding.bind(view)
 
     fun bindContent(presenter: TwilioVideoPresenter, user: User) {
-        Picasso.get().load(user.avatarUrl).into(binding.avatar)
+        if (user.avatarUrl.isNullOrEmpty()) {
+            Picasso.get().cancelRequest(binding.avatar)
+        } else {
+            Picasso.get().load(user.avatarUrl).into(binding.avatar)
+        }
         binding.displayName.text = user.displayName
 //        binding.description.text = PatientUtils.getPatientInfoString(itemView.context, user.userPatientMetadata)
 
