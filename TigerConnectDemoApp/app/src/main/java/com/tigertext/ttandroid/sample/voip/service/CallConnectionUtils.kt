@@ -17,7 +17,7 @@ import java.util.*
 @RequiresApi(Build.VERSION_CODES.O)
 object CallConnectionUtils {
 
-    private const val PHONE_ACCOUNT_ID_VOIP = "TigerConnect.VoIP"
+    private const val PHONE_ACCOUNT_ID_VOIP = "TigerConnect.Sample.VoIP"
 
     fun getPhoneAccountHandle(context: Context) = PhoneAccountHandle(ComponentName(context, CallConnectionService::class.java), PHONE_ACCOUNT_ID_VOIP)
 
