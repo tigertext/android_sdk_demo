@@ -1,6 +1,7 @@
 package com.tigertext.ttandroid.sample.application;
 
 import android.content.IntentFilter;
+import android.os.Build;
 
 import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -14,6 +15,7 @@ import com.tigertext.ttandroid.sample.fcm.SSEBroadcastReceiver;
 import com.tigertext.ttandroid.sample.notification.TCNotificationManager;
 import com.tigertext.ttandroid.sample.realtimeevents.RealTimeEventsTracker;
 import com.tigertext.ttandroid.sample.utils.SharedPrefs;
+import com.tigertext.ttandroid.sample.voip.service.CallConnectionUtils;
 import com.tigertext.ttandroid.sse.PushNotificationHandler;
 
 import timber.log.Timber;
@@ -40,6 +42,10 @@ public class TigerConnectApplication extends MultiDexApplication {
         setupRealTimeEventsTracker();
 
         setupNotificationReceiver();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CallConnectionUtils.INSTANCE.registerPhoneAccount(this);
+        }
     }
 
     /**
