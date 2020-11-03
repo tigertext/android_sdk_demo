@@ -76,7 +76,7 @@ class VoipParticipantView @JvmOverloads constructor(
             else -> user?.displayName
         }
 
-        if (user != null) {
+        if (user != null && !user.avatarUrl.isNullOrEmpty()) {
             Picasso.get().load(user.avatarUrl).into(binding.callerAvatar)
         } else {
             Picasso.get().cancelRequest(binding.callerAvatar)
