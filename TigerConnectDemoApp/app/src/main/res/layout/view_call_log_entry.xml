@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:elevation="@dimen/cardview_default_elevation">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="10dp" />
+
+    <ImageView
+        android:id="@+id/avatar_view"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_top" />
+
+    <ImageView
+        android:id="@+id/call_button"
+        android:layout_width="@dimen/icon_default_size"
+        android:layout_height="@dimen/icon_default_size"
+        android:layout_marginRight="10dp"
+        android:background="?attr/actionBarItemBackground"
+        android:padding="@dimen/icon_default_padding"
+        android:tooltipText="@string/call"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_round_call"
+        app:tint="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/display_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/caller_name"
+        app:layout_constraintEnd_toStartOf="@id/call_button"
+        app:layout_constraintStart_toEndOf="@id/avatar_view"
+        app:layout_constraintTop_toBottomOf="@id/guideline_top"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Cindy Hellam" />
+
+    <TextView
+        android:id="@+id/caller_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/attachment_preview_text"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@id/call_status"
+        app:layout_constraintEnd_toStartOf="@id/call_button"
+        app:layout_constraintStart_toStartOf="@id/display_name"
+        app:layout_constraintTop_toBottomOf="@id/display_name"
+        tools:text="Caller: Amy Green" />
+
+    <TextView
+        android:id="@+id/call_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:drawablePadding="6dp"
+        android:textColor="@color/attachment_preview_text"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@id/call_duration"
+        app:layout_constraintEnd_toStartOf="@id/call_button"
+        app:layout_constraintStart_toStartOf="@id/display_name"
+        app:layout_constraintTop_toBottomOf="@id/caller_name"
+        tools:drawableLeft="@drawable/ic_call_missed"
+        tools:text="Missed Call 9:00 PM" />
+
+    <TextView
+        android:id="@+id/call_duration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="4dp"
+        android:singleLine="true"
+        app:drawableTint="@color/colorPrimary"
+        app:drawableLeftCompat="@drawable/ic_access_time"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
+        app:layout_constraintEnd_toStartOf="@id/call_button"
+        app:layout_constraintStart_toStartOf="@id/call_status"
+        app:layout_constraintTop_toBottomOf="@id/call_status"
+        tools:text="35 min 20 sec" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="10dp" />
+
+    <View
+        android:id="@+id/row_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/profile_black_overlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/display_name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

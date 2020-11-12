@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,10 +21,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tigertext.ttandroid.RosterEntry;
 import com.tigertext.ttandroid.account.listener.LogoutListener;
 import com.tigertext.ttandroid.api.TT;
+import com.tigertext.ttandroid.org.Organization;
 import com.tigertext.ttandroid.sample.R;
 import com.tigertext.ttandroid.sample.application.TigerConnectApplication;
 import com.tigertext.ttandroid.sample.bottomsheet.BottomSheetOptions;
 import com.tigertext.ttandroid.sample.bottomsheet.BottomSheetOptionsAdapter;
+import com.tigertext.ttandroid.sample.calllog.CallLogFragment;
 import com.tigertext.ttandroid.sample.conversation.ConversationFragment;
 import com.tigertext.ttandroid.sample.conversation.viewmodel.ConversationViewModel;
 import com.tigertext.ttandroid.sample.databinding.InboxFragmentBinding;
@@ -31,6 +34,7 @@ import com.tigertext.ttandroid.sample.faboptions.NewForumFragment;
 import com.tigertext.ttandroid.sample.faboptions.NewGroupFragment;
 import com.tigertext.ttandroid.sample.inbox.viewmodel.InboxViewModel;
 import com.tigertext.ttandroid.sample.login.LoginFragment;
+import com.tigertext.ttandroid.sample.utils.SharedPrefs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,6 +70,15 @@ public class InboxFragment extends Fragment implements InboxAdapter.InboxItemCli
         logoutButton.setOnClickListener(v -> onLogoutClicked());
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         fab.setOnClickListener(view -> openInboxOptions());
+        binding.toolbar.getMenu().findItem(R.id.call_log).setOnMenuItemClickListener(item -> {
+            Fragment fragment = new CallLogFragment();
+            Bundle bundle = new Bundle();
+            String orgId = SharedPrefs.getInstance().getString(SharedPrefs.ORGANIZATION_ID, Organization.CONSUMER_ORG_ID);
+            bundle.putString("org_id", orgId);
+            fragment.setArguments(bundle);
+            goToFragment(fragment, "Call Log Fragment");
+            return true;
+        });
         return rootView;
     }
 
@@ -114,7 +127,7 @@ public class InboxFragment extends Fragment implements InboxAdapter.InboxItemCli
     private void setupViewModel() {
         viewModel = new ViewModelProvider(this).get(InboxViewModel.class);
         viewModel.updateRosterEntries();
-        viewModel.getRosterEntries().observe(this, rosterEntries -> {
+        viewModel.getRosterEntries().observe(getViewLifecycleOwner(), rosterEntries -> {
             if (rosterEntries == null || rosterEntries.size() == 0) {
                 Toast.makeText(getContext(), "There are no roster entries in this organization!", Toast.LENGTH_LONG).show();
             }

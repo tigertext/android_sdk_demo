@@ -28,6 +28,7 @@
 
     <string name="you">You</string>
     <string name="join_string_parenthesis_string">%1$s (%2$s)</string>
+    <string name="join_string_space_string">%1$s %2$s</string>
     <string name="patient">Patient</string>
     <string name="string_parenthesis">(%1$s)</string>
     <plurals name="assigned_roles">
@@ -97,5 +98,13 @@
     <string name="do_not_disturb">Do Not Disturb</string>
     <string name="patient_opted_out_via_sms">Opted out via SMS</string>
     <string name="call">Call</string>
+    <string name="caller_text">Caller: %1$s</string>
+    <string name="incoming">Incoming</string>
+    <string name="outgoing">Outgoing</string>
+    <string name="missed">Missed</string>
+    <string name="group">Group</string>
+    <string name="mobile">Mobile</string>
+    <string name="video">Video</string>
+    <string name="photo">Photo</string>
 
 </resources>
